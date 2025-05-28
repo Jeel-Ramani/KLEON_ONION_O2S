@@ -9,7 +9,7 @@ sysupgrade -F -n -v
 
 ### First expand the storage of the onion omega 
 ```bash
-#please ensure the sd card is inserted
+#please ensure the sd card is inserted and formated to the ext4 format
 mkdir /mnt/mmcblk0p1
 mount /dev/mmcblk0p1 /mnt/
 mount /dev/mmcblk0p1 /mnt/ ; tar -C /overlay -cvf - . | tar -C /mnt/ -xf - ; umount /mnt/
@@ -23,7 +23,7 @@ vi /etc/config/fstab
 ```bash
 option  target  '/mnt/<device name>'
 ```
-### and change it to:
+### And change it to:
 
 ```bash
 option target '/overlay'
@@ -33,13 +33,13 @@ option target '/overlay'
 ```bash
 option  enabled '0'
 ```
-### and change it to
+### And change it to
 
 ```bash 
 option  enabled '1'
 ```
 
-### steps for swap memory
+### Steps for swap memory
 ```bash
 opkg update
 opkg install swap-utils block-mount
@@ -53,7 +53,7 @@ block mount
 block umount;block mount
 vi /etc/rc.local
 ```
-### in this file past the following lines
+### In this file past the following lines
 ```bash
 ### activate the swap file on an external USB drive
 SWAP_FILE="/overlay/swap.page"
@@ -69,11 +69,11 @@ opkg install python3-pip
 pip install pytz requests pyserial pymodbus requests dotenv flask
 ```
 
-### create startup script using the following command 
+### Create startup script using the following command 
 ```bash
 vi etc/init.d/startup_script
 ```
-### add the following lines in that file
+### Add the following lines in that file
 ```bash
 #!/bin/sh /etc/rc.common
 START=90
@@ -91,19 +91,19 @@ start_service() {
         procd_close_instance
 }
 ```
-### run the following command after saving file
+### Run the following command after saving file
 ```bash
 chmod +x etc/init.d/startup_script
 etc/init.d/startup_script enable
 etc/init.d/startup_script start
 ```
 
-### create aanother startup file using the following command
+### Create aanother startup file using the following command
 
 ```bash
 vi etc/init.d/modbus_startup
 ```
-### add the following lines in that file
+### Add the following lines in that file
 ```bash
 #!/bin/sh /etc/rc.common
 START=90
@@ -127,7 +127,7 @@ chmod +x etc/init.d/modbus_startup
 etc/init.d/modbus_startup enable
 etc/init.d/modbus_startup start
 ```
-### for hostname and wifi run the following command and change XXXX to the device number
+### For hostname and wifi run the following command and change XXXX to the device number
 ```bash
 uci set system.@system[0].hostname='omega-UbiqO2S-9A60'
 uci commit system
