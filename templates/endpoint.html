@@ -1,0 +1,76 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">Endpoint Configuration</h4>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>Endpoint URL</label>
+                        <input name="endpoint_url" type="url" class="form-control" placeholder="https://example.com/api" value="">
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>Proxy URL</label>
+                        <input name="proxy_url" type="url" class="form-control" placeholder="https://proxy.com:8080/" value="">
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer text-right">
+                <button type="button" class="btn btn-sm btn-outline-success">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+
+{% block scripts %}
+<script>
+    $(document).ready(function () {
+        $.get('/api/config/endpoint', function (data) {
+            if (data) {
+                $('input[name="endpoint_url"]').val(data.endpoint_url || '');
+                $('input[name="proxy_url"]').val(data.proxy_url || '');
+            }
+        });
+
+        // Save button handler
+        $('.btn-outline-success').on('click', function () {
+            const config = {
+                endpoint_url: $('input[name="endpoint_url"]').val(),
+                proxy_url: $('input[name="proxy_url"]').val()
+            };
+
+            $.ajax({
+                url: '/api/config/endpoint',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(config),
+                success: function () {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success',
+                        text: 'Configuration saved successfully.'
+                    });
+                },
+                error: function () {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'Failed to save configuration.'
+                    });
+                }
+            });
+        });
+    });
+</script>
+{% endblock %}

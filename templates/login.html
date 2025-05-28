@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <link rel="apple-touch-icon" sizes="76x76" href="/assets/img/favicon.png">
+    <link rel="icon" type="image/png" href="/assets/img/favicon.png">
+    <link rel="shortcut icon" type="image/png" href="/assets/img/favicon.png">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>
+        Ubiqedge Onion Configurator
+    </title>
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no'
+        name='viewport' />
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="/assets/css/paper-dashboard.min.css?v=2.1.1" rel="stylesheet" />
+    <style>
+        .full-page.section-image {
+            height: 100vh;
+            background-size: cover;
+        }
+
+        .content {
+            display: flex;
+            height: 100%;
+        }
+
+        .content .container {
+            margin-top: auto;
+            margin-bottom: auto;
+        }
+    </style>
+</head>
+
+<body class="login-page">
+    <div class="wrapper wrapper-full-page ">
+        <div class="full-page section-image" filter-color="black" style="background-image: url('/assets/img/bg5.jpg');">
+            <div class="content">
+                <div class="container">
+                    <div class="col-lg-4 col-md-6 ml-auto mr-auto">
+                        <div class="card card-login">
+                            <div class="card-header ">
+                                <div class="card-header text-center">
+                                    <img src="/assets/img/ubiq-slim.png" style="max-height: 3.5em; margin-bottom: 1em;">
+                                    <hr />
+                                </div>
+                            </div>
+                            <div class="card-body ">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="nc-icon nc-single-02"></i>
+                                        </span>
+                                    </div>
+                                    <input type="text" class="form-control" placeholder="Username">
+                                </div>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="nc-icon nc-key-25"></i>
+                                        </span>
+                                    </div>
+                                    <input type="password" placeholder="Password" class="form-control">
+                                </div>
+                                <br />
+                            </div>
+                            <div class="card-footer ">
+                                <a href="javascript:;"
+                                    class="btn btn-warning btn-round btn-block mb-3 btn-login">Login</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="/assets/js/core/jquery.min.js"></script>
+    <script src="/assets/js/core/popper.min.js"></script>
+    <script src="/assets/js/core/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="/assets/js/paper-dashboard.min.js?v=2.1.1" type="text/javascript"></script>
+    <script>
+        $(document).ready(function () {
+            $('.btn-login').on('click', login);
+            $('input[type="text"], input[type="password"]').on('keypress', function (e) {
+                if (e.which === 13) {
+                    login();
+                }
+            });
+        });
+
+        function login() {
+            const username = $('input[type="text"]').val();
+            const password = $('input[type="password"]').val();
+
+            $.ajax({
+                url: '/api/auth',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({ username, password }),
+                success: function (response) {
+                    if (response.status) {
+                        localStorage.setItem('token', response.token);
+                        window.location.href = '/';
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Login Failed',
+                            text: response.message,
+                        });
+                    }
+                },
+                error: function () {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'An error occurred while processing your request.',
+                    });
+                }
+            });
+        }
+    </script>
+</body>
+
+</html>

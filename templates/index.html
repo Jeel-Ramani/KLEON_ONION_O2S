@@ -1,0 +1,70 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+<style>
+    .card-stats{
+        cursor: pointer;
+    }
+</style>
+
+<div class="row">
+    <div class="col-md-3 ml-auto">
+        <div class="card card-stats" onclick="window.location.href='/modbus'">
+            <div class="card-body ">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="icon-big text-center icon-success" style="font-size: 6em;">
+                            <i class="fa fa-network-wired text-success"></i>
+                        </div>
+                    </div>
+                    <div class="col-12 text-center">
+                        <div class="numbers mb-3">
+                            <p class="text-center card-category">Configure</p>
+                            <p class="text-center card-title">Modbus</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card card-stats" onclick="window.location.href='/lan'">
+            <div class="card-body ">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="icon-big text-center icon-success" style="font-size: 6em;">
+                            <i class="fa fa-wifi text-success"></i>
+                        </div>
+                    </div>
+                    <div class="col-12 text-center">
+                        <div class="numbers mb-3">
+                            <p class="text-center card-category">Configure</p>
+                            <p class="text-center card-title">LAN</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 mr-auto">
+        <div class="card card-stats" onclick="window.location.href='/endpoint'">
+            <div class="card-body ">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="icon-big text-center icon-success" style="font-size: 6em;">
+                            <i class="nc-icon nc-globe text-success"></i>
+                        </div>
+                    </div>
+                    <div class="col-12 text-center">
+                        <div class="numbers mb-3">
+                            <p class="text-center card-category">Configure</p>
+                            <p class="text-center card-title">Endpoint</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

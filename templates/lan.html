@@ -1,0 +1,90 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<div class="row">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-header">
+        <h4 class="card-title">Ethernet Configuration</h4>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>IP Address</label>
+              <input name="ip_address" type="text" class="form-control" placeholder="192.168.1.100" value="">
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>Subnet Mask</label>
+              <input name="subnet" type="text" class="form-control" placeholder="255.255.255.0" value="">
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>Gateway</label>
+              <input name="gateway" type="text" class="form-control" placeholder="192.168.1.1" value="">
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>DNS Server</label>
+              <input name="dns" type="text" class="form-control" placeholder="8.8.8.8" value="">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer text-right">
+        <button type="button" class="btn btn-sm btn-outline-success btn-save">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  $(document).ready(function () {
+    $.get('/api/config/lan', function (data) {
+      if (data) {
+        $('input[name="ip_address"]').val(data.ip || '');
+        $('input[name="subnet"]').val(data.subnet || '');
+        $('input[name="gateway"]').val(data.gateway || '');
+        $('input[name="dns"]').val(data.dns || '');
+      }
+    });
+
+    $('.btn-save').on('click', function () {
+      const config = {
+        ip: $('input[name="ip_address"]').val(),
+        subnet: $('input[name="subnet"]').val(),
+        gateway: $('input[name="gateway"]').val(),
+        dns: $('input[name="dns"]').val()
+      };
+
+      $.ajax({
+        url: '/api/config/lan',
+        type: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify(config),
+        success: function () {
+          Swal.fire({
+            icon: 'success',
+            title: 'Success',
+            text: 'Configuration saved successfully.'
+          });
+        },
+        error: function () {
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'Failed to save configuration.'
+          });
+        }
+      });
+    });
+  });
+</script>
+
+{% endblock %}
