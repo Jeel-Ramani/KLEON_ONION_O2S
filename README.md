@@ -1,6 +1,6 @@
 # KLEON_ONION_O2S
 
-### Run the following if omega is not on the 23.05 version
+### Run the following if omega is not on the openwrt 23.05 version
 ```bash 
 cd /tmp
 wget http://repo.onioniot.com.s3.amazonaws.com/omega2/images/openwrt-23.05/onion_omega2p-23.05.3-20250205.bin
