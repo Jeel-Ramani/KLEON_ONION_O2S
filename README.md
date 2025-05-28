@@ -28,7 +28,7 @@ option  target  '/mnt/<device name>'
 ```bash
 option target '/overlay'
 ```
-###Then, look for the line:
+### Then, look for the line:
 
 ```bash
 option  enabled '0'
@@ -129,10 +129,10 @@ etc/init.d/modbus_startup start
 ```
 ### For hostname and wifi run the following command and change XXXX to the device number
 ```bash
-uci set system.@system[0].hostname='omega-UbiqO2S-9A60'
+uci set system.@system[0].hostname='omega-UbiqO2S-XXXX'
 uci commit system
 
-uci set wireless.default_radio0.ssid='UbiqO2S-9A60'
+uci set wireless.default_radio0.ssid='UbiqO2S-XXXX'
 uci commit wireless
 
 
