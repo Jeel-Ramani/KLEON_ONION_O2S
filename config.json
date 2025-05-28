@@ -1,0 +1,60 @@
+{
+  "endpoint": {
+    "endpoint_url": "https://samasth.io:443/api/v1/5ypb2oxoq1qzkukspnyv",
+    "proxy_url": ""
+  },
+  "ethernet": {
+    "ip": "192.168.1.222",
+    "subnet": "255.255.255.0",
+    "gateway": "192.168.1.1",
+    "dns": "8.8.8.9"
+  },
+  "modbus": {
+    "config": {
+      "Baudrate": "9600",
+      "Polling_time": "1"
+    },
+    "tags": [
+      {
+        "tag_name": "12sww",
+        "slave_id": "1",
+        "function_code": "3",
+        "start_address": "12",
+        "quantity": "12",
+        "data_type": "int32"
+      },
+      {
+        "data_type": "int16",
+        "function_code": "3",
+        "quantity": "5",
+        "slave_id": "1",
+        "start_address": "5",
+        "tag_name": "Tag4"
+      },
+      {
+        "data_type": "int16",
+        "function_code": "3",
+        "quantity": "2",
+        "slave_id": "1",
+        "start_address": "3",
+        "tag_name": "Tag3"
+      },
+      {
+        "data_type": "int16",
+        "function_code": "3",
+        "quantity": "3",
+        "slave_id": "1",
+        "start_address": "2",
+        "tag_name": "Tag2"
+      },
+      {
+        "data_type": "int16",
+        "function_code": "3",
+        "quantity": "2",
+        "slave_id": "1",
+        "start_address": "1",
+        "tag_name": "Tag1"
+      }
+    ]
+  }
+}
